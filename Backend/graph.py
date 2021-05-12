@@ -1,4 +1,4 @@
 from data import Graph_data
 
-class Graph():
+class GraphWidget(FigureCanvas):
     pass

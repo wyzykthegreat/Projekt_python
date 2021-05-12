@@ -5,6 +5,16 @@ from exceptions import UnableToDownloadNewestData
 class Read_parmeters():
     pass
     #data.Parameters
+    #wczytuje parametry ustawione przez uzytkownika
+
+    def read_selected_tab(self):
+        pass
+
+    def read_selected_countries(self):
+        pass
+
+    def read_date_range(self):
+        pass
 
 class Update_Web_Data():
     def __init__(self):
@@ -14,24 +24,24 @@ class Update_Web_Data():
 
         url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
         filename = 'covid_19_cases.csv'
-        #rozbic to na download i save(bardziej poprawnie)?
+        #rozbic to na download i save(bardziej poprawnie)? #fixme
         self.download(url, filename)
 
     def update_recovered(self):
         url = # inny url 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
         filename = 'covid_19_recovered.csv'
-        #rozbic to na download i save(bardziej poprawnie)?
+        #rozbic to na download i save(bardziej poprawnie)? #fixme
         self.download(url, filename)
 
 
     def download(self, url, filename):
-        # gdzie i jak tu wsadzic exception?
+        # gdzie i jak tu wsadzic exception? #fixme
         try:
             r = requests.get(url, allow_redirects=True)
-            # gdybysmy chcieli zrobic na to osobny folder https://stackabuse.com/creating-and-deleting-directories-with-python/
+            # gdybysmy chcieli zrobic na to osobny folder https://stackabuse.com/creating-and-deleting-directories-with-python/ #fixme
             open(filename, 'wb').write(r.content)
         except UnableToDownloadNewestData as err:
-            # może zrobić wyskakujące okienko z błędem?
+            # może zrobić wyskakujące okienko z błędem? #fixme
             print(f"Error catched: {err}")
 
 class Update_graph_data():
