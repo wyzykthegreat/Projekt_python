@@ -1,6 +1,6 @@
 import requests
-import data
-from exceptions import UnableToDownloadNewestData
+import Backend.data
+from Backend.exceptions import UnableToDownloadNewestData
 
 class Read_parmeters():
     pass
@@ -28,7 +28,7 @@ class Update_Web_Data():
         self.download(url, filename)
 
     def update_recovered(self):
-        url = # inny url 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
+        url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
         filename = 'covid_19_recovered.csv'
         #rozbic to na download i save(bardziej poprawnie)? #fixme
         self.download(url, filename)
