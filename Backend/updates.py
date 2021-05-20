@@ -41,7 +41,7 @@ class Update_Web_Data():
             # gdybysmy chcieli zrobic na to osobny folder https://stackabuse.com/creating-and-deleting-directories-with-python/ #fixme
             open(filename, 'wb').write(r.content)
         except UnableToDownloadNewestData as err:
-            # może zrobić wyskakujące okienko z błędem? #fixme
+            # może zrobić wyskakujące okienko z błędem?  to chyba w module exceptions te okienka#fixme
             print(f"Error catched: {err}")
 
 class Update_graph_data():
