@@ -59,9 +59,3 @@ class Update_graph_data():
 
     def set_data_vector(self):
         pass
-
-##########
-#--------#
-###chuj###
-#--------#
-##########
