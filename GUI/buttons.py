@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTabWidget, QGridLayout, QCheckBox, QLabel, QScrollArea, \
     QFormLayout, QGroupBox, QPushButton, QHBoxLayout
+from graph import get_countries
 
 
 class PushButton(QWidget):
@@ -33,3 +34,6 @@ class ReportBtn(QPushButton):
         ReportButton.clicked.connect(lambda _: print("PDF"))
         layout.addWidget(ReportButton)
         self.setLayout(layout)
+
+    def sprawdzanie(self):
+        size = get_countries("time_series_covid19_confirmed_global.csv")

@@ -1,24 +1,15 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout
+from PyQt5.QtWidgets import QMainWindow
 from tabs import TabsWidget
 
+class Window(QMainWindow):
 
-class Window(QWidget):
     def __init__(self):
         super().__init__()
-        width, height = 1600, 900
-        self.setFixedSize(width, height)
-        self.setWindowTitle("Python-19")
-        self.__tabs_widget = TabsWidget(self, width, height)
-        layout = QHBoxLayout()
-        self.__tabs_widget.setLayout(layout)
+        self.setWindowTitle("Pyton-19")
+
+        self.__tabs_widget = TabsWidget()
+        self.setCentralWidget(self.__tabs_widget)
         self.show()
 
-
-if __name__ == "__main__":
-    app = QApplication([])
-
-    empty_view = Window()
-
-    sys.exit(app.exec_())

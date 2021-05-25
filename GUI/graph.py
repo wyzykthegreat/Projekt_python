@@ -4,7 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import sys
+import config
 
+config.FILENAME = None
+config.COUNTRIES = []
+config.START_DAY = None
+config.END_DAY = None
 
 class GraphWidget(FigureCanvas):
     def __init__(self, parent):
@@ -13,7 +18,7 @@ class GraphWidget(FigureCanvas):
         self.setParent(parent)
         filepath = "time_series_covid19_confirmed_global.csv"
         countries_dict = ["Germany", "Poland", "France"]
-        display_data(read_countries_data(filepath, countries_dict))
+        display_data(read_countries_data(filepath, config.COUNTRIES))
 
 
 def read_countries_data(filepath, countries):
@@ -31,6 +36,15 @@ def read_countries_data(filepath, countries):
                 countries_data[maybe_country] = n_of_patients_in_time
 
     return countries_data
+
+def get_countries(filepath):
+    countries_list = []
+
+    with open(filepath, "r") as f:
+        for line in f:
+            countries_list.append(line.split(",")[1])
+
+    return countries_list
 
 def get_patients_as_vector(country_data_line):
     n_of_unimportant_column = 4
