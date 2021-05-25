@@ -31,7 +31,7 @@ class Cbx(QCheckBox):
     def func_to(self, name):
         return lambda _: raz(name)
 
-
+# ustawilem tutaj jako odzielna funkcje bo chyba nei trzeba zeby bylo w clasie #fixme
 def raz(name):
     if name in config.COUNTRIES:
         config.COUNTRIES.remove(name)
