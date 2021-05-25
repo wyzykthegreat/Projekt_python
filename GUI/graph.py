@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTabWidget, QGri
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import sys
 import Backend.config as config
 
 config.COUNTRIES = []
@@ -41,7 +40,8 @@ def get_countries(filepath):
 
     with open(filepath, "r") as f:
         for line in f:
-            countries_list.append(line.split(",")[1])
+            if line.split(",")[1] not in countries_list:
+                countries_list.append(line.split(",")[1])
 
     return countries_list
 

@@ -13,7 +13,6 @@ config.END_DAY = None
 class Cbx(QCheckBox):
     def __init__(self, name):
         super().__init__(name)
-        self.__cbx_list = list()
 
     def _make_list(self):
         size = get_countries(config.FILENAME)
@@ -23,7 +22,6 @@ class Cbx(QCheckBox):
         for i in range(len(size[1:])):
             name = "{}".format(size[i + 1])
             cbx = Cbx(name)
-            self.__cbx_list.append(cbx)
             cbx_layout.addRow(cbx)
             cbx.clicked.connect(self.func_to(cbx.text()))
 
@@ -31,14 +29,13 @@ class Cbx(QCheckBox):
         return self.__cbx_group
 
     def func_to(self, name):
+        return lambda _: raz(name)
 
-        return lambda _: self.raz(name)
 
-    def raz(self, name):
-        if name in config.COUNTRIES:
-            config.COUNTRIES.remove(name)
-        else:
-            config.COUNTRIES.append(name)
-        GraphWidget(self)
-        print(name)
-        print(config.COUNTRIES)
+def raz(name):
+    if name in config.COUNTRIES:
+        config.COUNTRIES.remove(name)
+    else:
+        config.COUNTRIES.append(name)
+    print(name)
+    print(config.COUNTRIES)
