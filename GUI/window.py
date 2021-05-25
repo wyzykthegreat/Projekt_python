@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5.QtWidgets import QMainWindow
-from tabs import TabsWidget
+from GUI.tabs import TabsWidget
 
 class Window(QMainWindow):
 

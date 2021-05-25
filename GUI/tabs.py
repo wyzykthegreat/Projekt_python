@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTabWidget, QGridLayout
-from countries_list import ListWidget
-from graph import GraphWidget
-from buttons import UpdateBtn, ReportBtn
+from GUI.countries_list import ListWidget
+from GUI.graph import GraphWidget
+from GUI.buttons import UpdateBtn, ReportBtn
 
 class TabsWidget(QWidget):
 

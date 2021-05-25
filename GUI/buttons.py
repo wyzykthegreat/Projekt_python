@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTabWidget, QGridLayout, QCheckBox, QLabel, QScrollArea, \
     QFormLayout, QGroupBox, QPushButton, QHBoxLayout
-from graph import get_countries
+from GUI.graph import get_countries
 
 
 class PushButton(QWidget):

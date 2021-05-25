@@ -1,9 +1,8 @@
 from PyQt5.QtWidgets import QScrollArea
 from PyQt5.QtCore import Qt
-from checkboxes import Cbx
-import config
+from GUI.checkboxes import Cbx
+import Backend.config as config
 
-config.FILENAME = None
 config.COUNTRIES = []
 config.START_DAY = None
 config.END_DAY = None

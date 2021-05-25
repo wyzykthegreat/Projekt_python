@@ -4,9 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import sys
-import config
+import Backend.config as config
 
-config.FILENAME = None
 config.COUNTRIES = []
 config.START_DAY = None
 config.END_DAY = None
@@ -16,9 +15,9 @@ class GraphWidget(FigureCanvas):
         fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
         super().__init__(fig)
         self.setParent(parent)
-        filepath = "time_series_covid19_confirmed_global.csv"
+        filepath = config.FILENAME
         countries_dict = ["Germany", "Poland", "France"]
-        display_data(read_countries_data(filepath, config.COUNTRIES))
+        display_data(read_countries_data(config.FILENAME, config.COUNTRIES))
 
 
 def read_countries_data(filepath, countries):
