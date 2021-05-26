@@ -23,8 +23,16 @@ class TabsWidget(QWidget):
         layout_tab1.addWidget(GraphWidget(self), 0, 0)
         layout_tab1.addWidget(ReportBtn(), 3, 0)
 
+        layout_tab2 = QGridLayout()
+        layout_tab2.addWidget(ListWidget(), 0, 3)
+        layout_tab2.addWidget(GraphWidget(self), 0, 0)
+        layout_tab2.addWidget(ReportBtn(), 3, 0)
+
         self.__tab1.setLayout(layout_tab1)
-        self.__tab2.setLayout(QVBoxLayout(self))
+        self.__tab2.setLayout(layout_tab2)
 
         layout.addWidget(self.__tabs)
         self.setLayout(layout)
+
+    def get_selected_tab(self):
+        return self.__tabs.currentIndex()

@@ -1,14 +1,16 @@
 import requests
 import Backend.data
 from Backend.exceptions import UnableToDownloadNewestData
+from GUI.tabs import TabsWidget
+from Backend.data import Parameters
 
 class Read_parmeters():
     pass
     #data.Parameters
     #wczytuje parametry ustawione przez uzytkownika
 
-    def read_selected_tab(self):
-        pass
+    def read_selected_tab(self, tabsWidget: TabsWidget, parameters: Parameters):
+        parameters.set_selected_tab(tabsWidget.get_selected_tab())
 
     def read_selected_countries(self):
         pass

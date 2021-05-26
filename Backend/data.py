@@ -1,25 +1,28 @@
-
+import Backend.config as config
+import datetime
 
 class Parameters():
-    pass
+    def __init__(self):
+        self.__selected_tab = None
+        self.__selected_countries = config.COUNTRIES
+        self.__selected_date_range = ()
 
-    def set_selected_tab(self):
-        pass
 
-    def set_selected_countries(self):
-        pass
+    def set_selected_tab(self, selected_tab: str):
+        self.__selected_tab = selected_tab
 
-    def set_date_range(self):
+
+    def set_date_range(self, start_date: datetime, end_date: datetime):
         pass
 
     def get_selected_tab(self):
-        pass
+        return self.__selected_tab
 
     def get_selected_countries(self):
-        pass
+        return self.__selected_countries
 
     def get_date_range(self):
-        pass
+        return self.__selected_date_range
 
 
 class Graph_data():
