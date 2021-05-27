@@ -43,7 +43,8 @@ def get_countries(filepath):
 
     with open(filepath, "r") as f:
         for line in f:
-            countries_list.append(line.split(",")[1])
+            if line.split(",")[1] not in countries_list:
+                countries_list.append(line.split(",")[1])
 
     return countries_list
 
