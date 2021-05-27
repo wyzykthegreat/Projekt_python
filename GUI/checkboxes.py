@@ -4,10 +4,8 @@ from PyQt5.QtWidgets import QCheckBox, QFormLayout, QGroupBox
 
 import Backend.config as config
 from GUI.graph import get_countries, GraphWidget
+from Backend.config import Singleton, FILENAME_NEW_CASES
 
-config.COUNTRIES = []
-config.START_DAY = None
-config.END_DAY = None
 
 
 class Cbx(QCheckBox):
@@ -15,8 +13,8 @@ class Cbx(QCheckBox):
         super().__init__(name)
         self.__cbx_list = list()
 
-    def _make_list(self):
-        size = get_countries(config.FILENAME)
+    def _make_list(self, data):
+        size = get_countries(FILENAME_NEW_CASES)
         cbx_layout = QFormLayout()
         self.__cbx_group = QGroupBox("Countries")
 
@@ -25,20 +23,20 @@ class Cbx(QCheckBox):
             cbx = Cbx(name)
             self.__cbx_list.append(cbx)
             cbx_layout.addRow(cbx)
-            cbx.clicked.connect(self.func_to(cbx.text()))
+            cbx.clicked.connect(self.func_to(cbx.text(), data))
 
         self.__cbx_group.setLayout(cbx_layout)
         return self.__cbx_group
 
-    def func_to(self, name):
+    def func_to(self, name, data):
 
-        return lambda _: self.raz(name)
+        return lambda _: self.raz(name, data)
 
-    def raz(self, name):
-        if name in config.COUNTRIES:
-            config.COUNTRIES.remove(name)
+    def raz(self, name, data: Singleton):
+        if name in data.countries:
+            data.countries.remove(name)
         else:
-            config.COUNTRIES.append(name)
-        GraphWidget(self)
-        print(name)
-        print(config.COUNTRIES)
+            data.countries.append(name)
+
+
+        print(data.countries)
