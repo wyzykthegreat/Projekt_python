@@ -3,20 +3,23 @@ from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTabWidget, QGri
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import Backend.config as config
+import sys
+from Backend.config import Singleton, FILENAME_RECOVERED, FILENAME_NEW_CASES
 
-config.COUNTRIES = []
-config.START_DAY = None
-config.END_DAY = None
 
 class GraphWidget(FigureCanvas):
-    def __init__(self, parent):
+    def __init__(self, parent, type: str, data: Singleton):
         fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
         super().__init__(fig)
         self.setParent(parent)
-        filepath = config.FILENAME
-        countries_dict = ["Germany", "Poland", "France"]
-        display_data(read_countries_data(config.FILENAME, config.COUNTRIES))
+        self.type = type
+        self.update_graph(data)
+
+
+    def update_graph(self, data: Singleton):
+        filepath = FILENAME_NEW_CASES if self.type == "Zakazeni" else FILENAME_RECOVERED
+        countries_list = data.countries
+        display_data(read_countries_data(filepath, countries_list))
 
 
 def read_countries_data(filepath, countries):
