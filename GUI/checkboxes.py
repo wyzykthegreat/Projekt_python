@@ -1,17 +1,13 @@
-import sys
-
 from PyQt5.QtWidgets import QCheckBox, QFormLayout, QGroupBox
-
-import Backend.config as config
 from GUI.graph import get_countries, GraphWidget
 from Backend.config import Singleton, FILENAME_NEW_CASES
 
 
-
 class Cbx(QCheckBox):
-    def __init__(self, name):
+    def __init__(self, parent, name):
         super().__init__(name)
         self.__cbx_list = list()
+        self.parent = parent
 
     def _make_list(self):
         size = get_countries(FILENAME_NEW_CASES)
@@ -20,7 +16,7 @@ class Cbx(QCheckBox):
 
         for i in range(len(size[1:])):
             name = "{}".format(size[i + 1])
-            cbx = Cbx(name)
+            cbx = Cbx(self.parent, name)
             self.__cbx_list.append(cbx)
             cbx_layout.addRow(cbx)
             cbx.clicked.connect(self.func_to(cbx.text()))
@@ -36,8 +32,19 @@ class Cbx(QCheckBox):
         parameters = Singleton.get_instance()
         if name in parameters.countries:
             parameters.countries.remove(name)
+            if self.parent.get_selected_tab() == 0:
+                plot = GraphWidget(self.parent, "Zakazeni")
+                plot.update_graph()
+            elif self.parent.get_selected_tab() == 1:
+                plot = GraphWidget(self.parent, "Ozdrowieni")
+                plot.update_graph()
         else:
             parameters.countries.append(name)
-
+            if self.parent.get_selected_tab() == 0:
+                plot = GraphWidget(self.parent, "Zakazeni")
+                plot.update_graph()
+            elif self.parent.get_selected_tab() == 1:
+                plot = GraphWidget(self.parent, "Ozdrowieni")
+                plot.update_graph()
         print(parameters.countries)
-        print (parameters)
+        print(parameters)

@@ -1,12 +1,12 @@
+from datetime import date
+
 global FILENAME_RECOVERED
 global FILENAME_NEW_CASES
 FILENAME_RECOVERED = "covid_19_recovered.csv"
 FILENAME_NEW_CASES = "covid_19_cases.csv"
 
-from datetime import date
 
 class Singleton():
-
     __instance = None
 
     def get_instance():
@@ -20,7 +20,6 @@ class Singleton():
             self.date_range = (date(2020, 3, 15), date(2021, 5, 27))
             Singleton.__instance = self
 
-
     def add_country(self, country_name):
         self.countries.append(country_name)
 
@@ -28,4 +27,4 @@ class Singleton():
         self.date_range = (start_date, end_date)
 
     def print_data(self):
-        print (f"Countries: {self.countries}\nDate_range: {self.date_range}")
+        print(f"Countries: {self.countries}\nDate_range: {self.date_range}")
