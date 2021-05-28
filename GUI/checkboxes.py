@@ -13,7 +13,7 @@ class Cbx(QCheckBox):
         super().__init__(name)
         self.__cbx_list = list()
 
-    def _make_list(self, graph: GraphWidget):
+    def _make_list(self):
         size = get_countries(FILENAME_NEW_CASES)
         cbx_layout = QFormLayout()
         self.__cbx_group = QGroupBox("Countries")
@@ -23,22 +23,21 @@ class Cbx(QCheckBox):
             cbx = Cbx(name)
             self.__cbx_list.append(cbx)
             cbx_layout.addRow(cbx)
-            cbx.clicked.connect(self.func_to(cbx.text(), graph))
+            cbx.clicked.connect(self.func_to(cbx.text()))
 
         self.__cbx_group.setLayout(cbx_layout)
         return self.__cbx_group
 
-    def func_to(self, name, graph: GraphWidget):
+    def func_to(self, name):
 
-        return lambda _: self.raz(name, graph)
+        return lambda _: self.raz(name)
 
-    def raz(self, name, graph: GraphWidget):
-        data1 = Singleton.get_instance()
-        if name in data1.countries:
-            data1.countries.remove(name)
+    def raz(self, name):
+        parameters = Singleton.get_instance()
+        if name in parameters.countries:
+            parameters.countries.remove(name)
         else:
-            data1.countries.append(name)
+            parameters.countries.append(name)
 
-        graph.update_graph()
-        print(data1.countries)
-        print (data1)
+        print(parameters.countries)
+        print (parameters)

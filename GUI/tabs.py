@@ -26,15 +26,15 @@ class TabsWidget(QWidget):
 
 
         layout_tab1 = QGridLayout()
-        layout_tab1.addWidget(ListWidget(graph1), 0, 3)
+        layout_tab1.addWidget(ListWidget(), 0, 3)
         layout_tab1.addWidget(graph1, 0, 0)
         layout_tab1.addWidget(ReportBtn(), 3, 0)
         #layout_tab1.addWidget(update_btn, 3, 3)
 
         layout_tab2 = QGridLayout()
-        #layout_tab2.addWidget(ListWidget(), 0, 3)
-        #layout_tab2.addWidget(graph2, 0, 0)
-        #layout_tab2.addWidget(ReportBtn(), 3, 0)
+        layout_tab2.addWidget(ListWidget(), 0, 3)
+        layout_tab2.addWidget(graph2, 0, 0)
+        layout_tab2.addWidget(ReportBtn(), 3, 0)
         #layout_tab2.addWidget(update_btn, 3, 3)
 
         self.__tab1.setLayout(layout_tab1)

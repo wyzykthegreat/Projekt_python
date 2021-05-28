@@ -4,27 +4,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import sys
+import datetime
 from Backend.config import Singleton, FILENAME_RECOVERED, FILENAME_NEW_CASES
 
 
 class GraphWidget(FigureCanvas):
     def __init__(self, parent, type: str):
-        fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
-        super().__init__(fig)
+        self.fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
+        super().__init__(self.fig)
         self.setParent(parent)
         self.type = type
         self.update_graph()
 
 
     def update_graph(self):
-        data2 = Singleton.get_instance()
+        parameters = Singleton.get_instance() #przywołanie naszego Singletona
         filepath = FILENAME_NEW_CASES if self.type == "Zakazeni" else FILENAME_RECOVERED
-        countries_list = data2.countries
-        display_data(read_countries_data(filepath, countries_list))
+        countries_list = parameters.countries
+        display_data(read_countries_data(filepath, countries_list), self.type)
 
 
 def read_countries_data(filepath, countries):
-    countries_list = []
     countries_data = {}
 
     with open(filepath, "r") as f:
@@ -56,17 +56,22 @@ def get_patients_as_vector(country_data_line):
 
     return n_of_patients_in_time
 
-def drawing():
-    plt.xlabel("Days (subsequent data)")
-    plt.ylabel("Total number of patients")
-    plt.title("Covid-19 number of patients since 01.01.2020")
+def drawing(type: str, start_date: datetime):
+    plt.xlabel(f"Dni od {start_date}")
+    if type == "Zakazeni":
+        plt.ylabel("Liczba zakażeń")
+        plt.title("Całkowita liczba zakażeń COVID-19")
+    elif type == "Ozdrowieni":
+        plt.ylabel("Liczba ozdrowień")
+        plt.title("Całkowita liczba ozdrowień COVID-19")
     plt.grid()
     plt.legend()
     plt.show()
     return 0
 
-def display_data(n_of_patients_in_countries):
+def display_data(n_of_patients_in_countries, type: str):
+    parameters = Singleton.get_instance()
     for country, data in n_of_patients_in_countries.items():
         plt.semilogy(data, label=country)
 
-    drawing()
+    drawing(type, parameters.date_range[0])
