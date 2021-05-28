@@ -8,17 +8,18 @@ from Backend.config import Singleton, FILENAME_RECOVERED, FILENAME_NEW_CASES
 
 
 class GraphWidget(FigureCanvas):
-    def __init__(self, parent, type: str, data: Singleton):
+    def __init__(self, parent, type: str):
         fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
         super().__init__(fig)
         self.setParent(parent)
         self.type = type
-        self.update_graph(data)
+        self.update_graph()
 
 
-    def update_graph(self, data: Singleton):
+    def update_graph(self):
+        data2 = Singleton.get_instance()
         filepath = FILENAME_NEW_CASES if self.type == "Zakazeni" else FILENAME_RECOVERED
-        countries_list = data.countries
+        countries_list = data2.countries
         display_data(read_countries_data(filepath, countries_list))
 
 
