@@ -32,19 +32,17 @@ class Cbx(QCheckBox):
         parameters = Singleton.get_instance()
         if name in parameters.countries:
             parameters.countries.remove(name)
-            if self.parent.get_selected_tab() == 0:
-                plot = GraphWidget(self.parent, "Zakazeni")
-                plot.update_graph()
-            elif self.parent.get_selected_tab() == 1:
-                plot = GraphWidget(self.parent, "Ozdrowieni")
-                plot.update_graph()
+            self.__update_graph()
         else:
             parameters.countries.append(name)
-            if self.parent.get_selected_tab() == 0:
-                plot = GraphWidget(self.parent, "Zakazeni")
-                plot.update_graph()
-            elif self.parent.get_selected_tab() == 1:
-                plot = GraphWidget(self.parent, "Ozdrowieni")
-                plot.update_graph()
+            self.__update_graph()
         print(parameters.countries)
         print(parameters)
+
+    def __update_graph(self):
+        if self.parent.get_selected_tab() == 0:
+            plot = GraphWidget(self.parent, "Zakazeni")
+            plot.update_graph()
+        elif self.parent.get_selected_tab() == 1:
+            plot = GraphWidget(self.parent, "Ozdrowieni")
+            plot.update_graph()

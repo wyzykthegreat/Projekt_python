@@ -64,8 +64,20 @@ def get_countries(filepath):
 
 
 def get_patients_as_vector(country_data_line):
+    singleton = Singleton.get_instance()
+
     n_of_unimportant_column = 4
-    n_of_patients_in_time = country_data_line.split(",")[n_of_unimportant_column:]
+
+    unimportant_days_before = (singleton.date_range[0] - singleton.start_day).days
+    unimportant_days_after = (singleton.end_day - singleton.date_range[1]).days
+
+    country_data_line = country_data_line.split(",")
+
+    n_of_unimportant_column = n_of_unimportant_column + unimportant_days_before
+    last_element_index = len(country_data_line) - unimportant_days_after
+
+
+    n_of_patients_in_time = country_data_line[n_of_unimportant_column:last_element_index - 1]
     n_of_patients_in_time = [int(val) for val in n_of_patients_in_time]
 
     return n_of_patients_in_time

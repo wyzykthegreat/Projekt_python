@@ -25,8 +25,8 @@ class TabsWidget(QWidget):
         print(data)
         graph1 = GraphWidget(self, "Zakazeni")
         graph2 = GraphWidget(self, "Ozdrowieni")
-        double_slider1 = DoubleSlider()
-        double_slider2 = DoubleSlider()
+        double_slider1 = DoubleSlider(self)
+        double_slider2 = DoubleSlider(self)
 
 
         self.layout_tab1 = QGridLayout()
