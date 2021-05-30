@@ -6,13 +6,6 @@ from GUI.graph import get_countries
 class PushButton(QWidget):
     def __init__(self):
         super().__init__()
-        layout = QGridLayout()
-
-        layout.addWidget(ReportBtn())
-        # layout.spacing = 2
-        layout.addWidget(UpdateBtn())
-
-        self.setLayout(layout)
 
 
 class UpdateBtn(QPushButton):

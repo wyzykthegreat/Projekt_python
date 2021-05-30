@@ -3,6 +3,7 @@ from GUI.countries_list import ListWidget
 from GUI.graph import GraphWidget
 from GUI.buttons import UpdateBtn, ReportBtn
 from Backend.config import Singleton
+from GUI.slider import DoubleSlider
 
 
 class TabsWidget(QWidget):
@@ -24,17 +25,22 @@ class TabsWidget(QWidget):
         print(data)
         graph1 = GraphWidget(self, "Zakazeni")
         graph2 = GraphWidget(self, "Ozdrowieni")
+        double_slider1 = DoubleSlider(0, 200)
+        double_slider2 = DoubleSlider(0, 200)
+
 
         self.layout_tab1 = QGridLayout()
-        self.layout_tab1.addWidget(ListWidget(self), 0, 3)
-        self.layout_tab1.addWidget(graph1, 0, 0)
-        self.layout_tab1.addWidget(ReportBtn(), 3, 0)
+        self.layout_tab1.addWidget(ListWidget(self), 0, 3, 3, 1)
+        self.layout_tab1.addWidget(graph1, 0, 0, 3, 3)
+        self.layout_tab1.addWidget(ReportBtn(), 3, 0, -1, 1)
+        self.layout_tab1.addWidget(double_slider1, 3, 3, -1, -1)
         # layout_tab1.addWidget(update_btn, 3, 3)
 
         self.layout_tab2 = QGridLayout()
         self.layout_tab2.addWidget(ListWidget(self), 0, 3)
         self.layout_tab2.addWidget(graph2, 0, 0)
         self.layout_tab2.addWidget(ReportBtn(), 3, 0)
+        self.layout_tab1.addWidget(double_slider2, 3, 3)
         #self.layout_tab2.addWidget(update_btn, 3, 3)
 
         self.__tab1.setLayout(self.layout_tab1)
