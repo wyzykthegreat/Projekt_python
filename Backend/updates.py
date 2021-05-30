@@ -1,16 +1,15 @@
 import requests
 import Backend.data
 from Backend.exceptions import UnableToDownloadNewestData
-from GUI.tabs import TabsWidget
-from Backend.data import Parameters
+import string
 
 class Read_parmeters():
     pass
     #data.Parameters
     #wczytuje parametry ustawione przez uzytkownika
 
-    def read_selected_tab(self, tabsWidget: TabsWidget, parameters: Parameters):
-        parameters.set_selected_tab(tabsWidget.get_selected_tab())
+    def read_selected_tab(self):
+        pass
 
     def read_selected_countries(self):
         pass
@@ -46,6 +45,20 @@ class Update_Web_Data():
             # może zrobić wyskakujące okienko z błędem?  to chyba w module exceptions te okienka#fixme
             print(f"Error catched: {err}")
 
+
+class LoadInitData():
+    def __init__(self, filepath):
+        with open(filepath, "r") as f:
+            line = f.readline()
+            line = line.split(",")
+            self.__dates_line = line[4:]
+
+    def get_date_range(self):
+        n = len(self.__dates_line)
+        #print(self.__dates_line[0], self.__dates_line[n-1])
+        return (self.__dates_line[0], self.__dates_line[n-1])
+
+
 class Update_graph_data():
     def __init__(self):
         pass
@@ -61,3 +74,4 @@ class Update_graph_data():
 
     def set_data_vector(self):
         pass
+
