@@ -84,16 +84,11 @@ class DoubleSlider(QWidget):
         start_date = singleton.start_day
         end_date = singleton.end_day
 
-        start_date_new = start_date + datetime.timedelta(days = start_value)
-        end_date_new = end_date - datetime.timedelta(days = singleton.n_of_days - end_value)
-
+        start_date_new = start_date + datetime.timedelta(days=start_value)
+        end_date_new = end_date - datetime.timedelta(days=singleton.n_of_days - end_value)
 
         singleton.set_date_range(start_date_new, end_date_new)
 
     def __update_graph(self):
-        if self.__parent.get_selected_tab() == 0:
-            plot = GraphWidget(self.__parent, "Zakazeni")
-            plot.update_graph()
-        elif self.__parent.get_selected_tab() == 1:
-            plot = GraphWidget(self.__parent, "Ozdrowieni")
-            plot.update_graph()
+        plot = GraphWidget(self.__parent, "Ozdrowieni") #typ nie ma znaczenia
+        plot.update_graph()

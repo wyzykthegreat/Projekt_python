@@ -40,9 +40,5 @@ class Cbx(QCheckBox):
         print(parameters)
 
     def __update_graph(self):
-        if self.parent.get_selected_tab() == 0:
-            plot = GraphWidget(self.parent, "Zakazeni")
-            plot.update_graph()
-        elif self.parent.get_selected_tab() == 1:
-            plot = GraphWidget(self.parent, "Ozdrowieni")
-            plot.update_graph()
+        plot = GraphWidget(self.parent, "Ozdrowieni")
+        plot.update_graph()

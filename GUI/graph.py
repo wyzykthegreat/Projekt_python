@@ -26,13 +26,15 @@ class GraphWidget(FigureCanvas):
         drawing(type, parameters.date_range[0])
 
     def update_graph(self):
-        plot = GraphWidget(self.parent, self.type)
-        if self.type == "Zakazeni":
-            self.parent.layout_tab1.addWidget(plot, 0, 0)
-            self.parent.setLayout(self.parent.layout_tab1)
-        else:
-            self.parent.layout_tab2.addWidget(plot, 0, 0)
-            self.parent.setLayout(self.parent.layout_tab2)
+        plot1 = GraphWidget(self.parent, "Zakazeni")
+        plot2 = GraphWidget(self.parent, "Ozdrowieni")
+
+        self.parent.layout_tab1.addWidget(plot1, 0, 0, 3, 3)
+        self.parent.layout_tab2.addWidget(plot2, 0, 0, 3, 3)
+
+        self.parent.tab1.setLayout(self.parent.layout_tab1)
+        self.parent.tab2.setLayout(self.parent.layout_tab2)
+
         self.parent.show()
 
 
@@ -75,7 +77,6 @@ def get_patients_as_vector(country_data_line):
 
     n_of_unimportant_column = n_of_unimportant_column + unimportant_days_before
     last_element_index = len(country_data_line) - unimportant_days_after
-
 
     n_of_patients_in_time = country_data_line[n_of_unimportant_column:last_element_index - 1]
     n_of_patients_in_time = [int(val) for val in n_of_patients_in_time]
