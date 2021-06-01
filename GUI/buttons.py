@@ -1,32 +1,29 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTabWidget, QGridLayout, QCheckBox, QLabel, QScrollArea, \
-    QFormLayout, QGroupBox, QPushButton, QHBoxLayout
+    QFormLayout, QGroupBox, QPushButton, QHBoxLayout, QFileDialog
 from GUI.graph import get_countries
-
-
-class PushButton(QWidget):
-    def __init__(self):
-        super().__init__()
-
-
-class UpdateBtn(QPushButton):
-    def __init__(self):
-        super().__init__()
-        layout = QVBoxLayout()
-        UpdateButton = QPushButton("Zaaktualizuj dane")
-        UpdateButton.clicked.connect(lambda _: print("To bedzie aktualizowac"))
-        layout.addWidget(UpdateButton)
-        self.setLayout(layout)
-
+from reportlab.lib.utils import ImageReader
+from Backend.report import Report
 
 class ReportBtn(QPushButton):
-    def __init__(self):
-        super().__init__()
-        layout = QVBoxLayout()
-        ReportButton = QPushButton("PDF")
+    def __init__(self, name, graph1, graph2):
+        super().__init__(name)
+        self.__graph1 = graph1
+        self.__graph2 = graph2
 
-        ReportButton.clicked.connect(lambda _: print("PDF"))
-        layout.addWidget(ReportButton)
-        self.setLayout(layout)
+        self.__pdf_generator = Report()
 
-    def sprawdzanie(self):
-        size = get_countries("time_series_covid19_confirmed_global.csv")
+        self.clicked.connect(self.__btn_action)
+
+    def __btn_action(self):
+        self.__graph1.update_graph()
+        self.__graph2.update_graph()
+        img_data1 = self.__graph1.get_img()
+        img_data2 = self.__graph2.get_img()
+        img1 = ImageReader(img_data1)
+        img2 = ImageReader(img_data2)
+        filename = self.__prepare_file_chooser()
+        self.__pdf_generator.create_and_save_report(img1, img2, filename)
+
+    def __prepare_file_chooser(self):
+        filename, _ = QFileDialog.getSaveFileName(self, "Save PDF report", filter="All Files (*)")
+        return filename

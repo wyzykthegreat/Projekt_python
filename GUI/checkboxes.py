@@ -9,7 +9,7 @@ class Cbx(QCheckBox):
         self.__cbx_list = list()
         self.parent = parent
 
-    def _make_list(self):
+    def _make_list(self): # dodac guzik co odznacza wszystko # %fixme
         size = get_countries(FILENAME_NEW_CASES)
         cbx_layout = QFormLayout()
         self.__cbx_group = QGroupBox("Countries")

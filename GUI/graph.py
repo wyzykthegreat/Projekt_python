@@ -2,12 +2,15 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import datetime
 from Backend.config import Singleton, FILENAME_RECOVERED, FILENAME_NEW_CASES
+from io import BytesIO
 
 
 class GraphWidget(FigureCanvas):
+    __IMG_FORMAT = "png"
+
     def __init__(self, parent, type: str):
-        self.fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
-        super().__init__(self.fig)
+        self.__fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
+        super().__init__(self.__fig)
         self.type = type
         self.parent = parent
         self.plot_graph()
@@ -36,6 +39,15 @@ class GraphWidget(FigureCanvas):
         self.parent.tab2.setLayout(self.parent.layout_tab2)
 
         self.parent.show()
+
+    def get_img(self):
+        img_data = BytesIO()
+        self.__fig.savefig(img_data, format=self.__IMG_FORMAT)
+
+        seek_offset = 0
+        img_data.seek(seek_offset)
+
+        return img_data
 
 
 def read_countries_data(filepath, countries):
@@ -94,4 +106,3 @@ def drawing(type: str, start_date: datetime):
         plt.title("Całkowita liczba ozdrowień COVID-19")
     plt.grid()
     plt.legend()
-    plt.show()

@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTabWidget, QGridLayout
 from GUI.countries_list import ListWidget
 from GUI.graph import GraphWidget
-from GUI.buttons import UpdateBtn, ReportBtn
+from GUI.buttons import ReportBtn
 from Backend.config import Singleton
 from GUI.slider import DoubleSlider
 
@@ -39,7 +39,7 @@ class TabsWidget(QWidget):
         layout.addWidget(self.tabs)
         layout.addWidget(ListWidget(self), 0, 3, 3, 1)
         layout.addWidget(double_slider1, 3, 3, -1, -1)
-        layout.addWidget(ReportBtn(), 3, 0, -1, 1)
+        layout.addWidget(ReportBtn("PDF",graph1,graph2), 3, 0, -1, 1)
 
         self.setLayout(layout)
         self.show()
