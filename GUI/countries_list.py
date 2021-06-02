@@ -15,7 +15,6 @@ class ListWidget(QWidget):
         self.__searchbar = QLineEdit()
         self.__scroll = QScrollArea()
 
-
         self.__init_view()
         self.__searchbar.textChanged.connect(self.__update_display)
 
@@ -26,12 +25,10 @@ class ListWidget(QWidget):
             else:
                 country.setVisible(False)
 
-
     def __init_view(self):
         spacer = QSpacerItem(1, 1, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.__controls_layout.addItem(spacer)
         self.__controls.setLayout(self.__controls_layout)
-
 
         layout = QVBoxLayout()
         layout.addWidget(self.__searchbar)
@@ -40,7 +37,6 @@ class ListWidget(QWidget):
         self.__scroll.setWidgetResizable(True)
         layout.addWidget(self.__scroll)
         self.setLayout(layout)
-
 
     def __make_list(self):
         size = get_countries(FILENAME_NEW_CASES)
@@ -51,6 +47,5 @@ class ListWidget(QWidget):
             cbx = Cbx(self.__parent, name)
             self.__controls_layout.addWidget(cbx)
             self.__cbx_group.append(cbx)
-
 
         return self.__cbx_group
