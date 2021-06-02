@@ -15,8 +15,8 @@ class ReportBtn(QPushButton):
         self.clicked.connect(self.__btn_action)
 
     def __btn_action(self):
-        self.__graph1.update_graph()
-        self.__graph2.update_graph()
+        self.__graph1 = self.__graph1.update_graph()[0]
+        self.__graph2 = self.__graph2.update_graph()[1]
         img_data1 = self.__graph1.get_img()
         img_data2 = self.__graph2.get_img()
         img1 = ImageReader(img_data1)

@@ -40,6 +40,8 @@ class GraphWidget(FigureCanvas):
 
         self.parent.show()
 
+        return (plot1, plot2)
+
     def get_img(self):
         img_data = BytesIO()
         self.__fig.savefig(img_data, format=self.__IMG_FORMAT)
