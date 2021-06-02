@@ -21,8 +21,7 @@ class GraphWidget(FigureCanvas):
         countries_list = parameters.countries
         self.display_data(read_countries_data(filepath, countries_list), self.type)
 
-    def display_data(self, n_of_patients_in_countries,
-                     type: str):  # tutaj bedzie trzeba zrobic zakres dat forze # fixme
+    def display_data(self, n_of_patients_in_countries, type: str):
         parameters = Singleton.get_instance()
         for country, data in n_of_patients_in_countries.items():
             self.ax.semilogy(data, label=country)

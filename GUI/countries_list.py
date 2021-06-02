@@ -44,7 +44,7 @@ class ListWidget(QWidget):
         self.setLayout(layout)
 
 
-    def __make_list(self):  # dodac guzik co odznacza wszystko i searchbar # %fixme
+    def __make_list(self):
         size = get_countries(FILENAME_NEW_CASES)
         self.__cbx_group = list()
 
