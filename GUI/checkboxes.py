@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QCheckBox, QFormLayout, QGroupBox
+from PyQt5.QtWidgets import QCheckBox, QLineEdit
 from GUI.graph import get_countries, GraphWidget
 from Backend.config import Singleton, FILENAME_NEW_CASES
 
@@ -6,29 +6,14 @@ from Backend.config import Singleton, FILENAME_NEW_CASES
 class Cbx(QCheckBox):
     def __init__(self, parent, name):
         super().__init__(name)
-        self.__cbx_list = list()
-        self.parent = parent
+        self.__parent = parent
 
-    def _make_list(self): # dodac guzik co odznacza wszystko # %fixme
-        size = get_countries(FILENAME_NEW_CASES)
-        cbx_layout = QFormLayout()
-        self.__cbx_group = QGroupBox("Countries")
+        self.clicked.connect(self.__func_to(self.text()))
 
-        for i in range(len(size[1:])):
-            name = "{}".format(size[i + 1])
-            cbx = Cbx(self.parent, name)
-            self.__cbx_list.append(cbx)
-            cbx_layout.addRow(cbx)
-            cbx.clicked.connect(self.func_to(cbx.text()))
+    def __func_to(self, name):
+        return lambda _: self.__on_click(name)
 
-        self.__cbx_group.setLayout(cbx_layout)
-        return self.__cbx_group
-
-    def func_to(self, name):
-
-        return lambda _: self.raz(name)
-
-    def raz(self, name):
+    def __on_click(self, name):
         parameters = Singleton.get_instance()
         if name in parameters.countries:
             parameters.countries.remove(name)
@@ -36,9 +21,13 @@ class Cbx(QCheckBox):
         else:
             parameters.countries.append(name)
             self.__update_graph()
-        print(parameters.countries)
-        print(parameters)
 
     def __update_graph(self):
-        plot = GraphWidget(self.parent, "Ozdrowieni")
+        plot = GraphWidget(self.__parent, "Ozdrowieni")
         plot.update_graph()
+
+    def show(self):
+        self.setVisible(True)
+
+    def hide(self):
+        self.setVisible(False)

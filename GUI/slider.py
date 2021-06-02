@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QSlider, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QSlider, QGridLayout, QLabel
 from PyQt5 import QtCore
 from Backend.config import Singleton
 import datetime
@@ -16,15 +16,21 @@ class DoubleSlider(QWidget):
         self.__min_width = min_width
         self.__parent = parent
 
+        self.__label1 = QLabel(f"{data.date_range[0]}")
+        self.__label2 = QLabel(f"{data.date_range[1]}")
+
+
         self.__slider1 = self.__prepare_slider1()
         self.__slider2 = self.__prepare_slider2()
 
         self.__prepare_layout()
 
     def __prepare_layout(self):
-        layout = QVBoxLayout()
-        layout.addWidget(self.__slider1)
-        layout.addWidget(self.__slider2)
+        layout = QGridLayout()
+        layout.addWidget(self.__label1, 0, 0)
+        layout.addWidget(self.__label2, 1, 0)
+        layout.addWidget(self.__slider1, 0, 1)
+        layout.addWidget(self.__slider2, 1, 1)
 
         self.setLayout(layout)
 
@@ -57,6 +63,7 @@ class DoubleSlider(QWidget):
 
         self.__update_singleton_date_range()
         self.__update_graph()
+        self.__label1.setText(f"{data.date_range[0]}")
 
         if start_value > end_value:
             self.__slider1.setValue(end_value)
@@ -71,6 +78,7 @@ class DoubleSlider(QWidget):
 
         self.__update_singleton_date_range()
         self.__update_graph()
+        self.__label2.setText(f"{data.date_range[1]}")
 
         if end_value < start_value:
             self.__slider2.setValue(start_value)

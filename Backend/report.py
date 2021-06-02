@@ -25,6 +25,6 @@ class Report:
         title_y = A3[1] - title_magic_offset_y
 
         canvas.drawCentredString(title_x, title_y, title)
-        canvas.drawImage(img1, 200, 600)
-        canvas.drawImage(img2, 200, 100)
+        canvas.drawImage(img1, 150, 600)
+        canvas.drawImage(img2, 150, 100)
         return canvas
