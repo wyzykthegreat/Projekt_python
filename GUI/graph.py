@@ -9,35 +9,35 @@ class GraphWidget(FigureCanvas):
     __IMG_FORMAT = "png"
 
     def __init__(self, parent, type: str):
-        self.__fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
+        self.__fig, self.__ax = plt.subplots(figsize=(5, 4), dpi=100)
         super().__init__(self.__fig)
-        self.type = type
-        self.parent = parent
-        self.plot_graph()
+        self.__type = type
+        self.__parent = parent
+        self.__plot_graph()
 
-    def plot_graph(self):
-        parameters = Singleton.get_instance()  # przywołanie naszego Singletona
-        filepath = FILENAME_NEW_CASES if self.type == "Zakazeni" else FILENAME_RECOVERED
-        countries_list = parameters.countries
-        self.display_data(read_countries_data(filepath, countries_list), self.type)
+    def __plot_graph(self):
+        data = Singleton.get_instance()  # przywołanie naszego Singletona
+        filepath = FILENAME_NEW_CASES if self.__type == "Zakazeni" else FILENAME_RECOVERED
+        countries_list = data.get_countries_list()
+        self.display_data(read_countries_data(filepath, countries_list), self.__type)
 
     def display_data(self, n_of_patients_in_countries, type: str):
-        parameters = Singleton.get_instance()
+        singleton = Singleton.get_instance()
         for country, data in n_of_patients_in_countries.items():
-            self.ax.semilogy(data, label=country)
-        drawing(type, parameters.date_range[0])
+            self.__ax.semilogy(data, label=country)
+        drawing(type, singleton.get_date_range()[0])
 
     def update_graph(self):
-        plot1 = GraphWidget(self.parent, "Zakazeni")
-        plot2 = GraphWidget(self.parent, "Ozdrowieni")
+        plot1 = GraphWidget(self.__parent, "Zakazeni")
+        plot2 = GraphWidget(self.__parent, "Ozdrowieni")
 
-        self.parent.layout_tab1.addWidget(plot1, 0, 0, 3, 3)
-        self.parent.layout_tab2.addWidget(plot2, 0, 0, 3, 3)
+        self.__parent.layout_tab1.addWidget(plot1, 0, 0, 3, 3)
+        self.__parent.layout_tab2.addWidget(plot2, 0, 0, 3, 3)
 
-        self.parent.tab1.setLayout(self.parent.layout_tab1)
-        self.parent.tab2.setLayout(self.parent.layout_tab2)
+        self.__parent.tab1.setLayout(self.__parent.layout_tab1)
+        self.__parent.tab2.setLayout(self.__parent.layout_tab2)
 
-        self.parent.show()
+        self.__parent.show()
 
         return (plot1, plot2)
 
@@ -83,8 +83,8 @@ def get_patients_as_vector(country_data_line):
 
     n_of_unimportant_column = 4
 
-    unimportant_days_before = (singleton.date_range[0] - singleton.start_day).days
-    unimportant_days_after = (singleton.end_day - singleton.date_range[1]).days
+    unimportant_days_before = (singleton.get_date_range()[0] - singleton.get_start_day()).days
+    unimportant_days_after = (singleton.get_end_day() - singleton.get_date_range()[1]).days
 
     country_data_line = country_data_line.split(",")
 

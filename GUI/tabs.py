@@ -22,7 +22,7 @@ class TabsWidget(QWidget):
         self.tabs.addTab(self.tab2, "Ozdrowieni")
 
         data = Singleton()
-        print(data)
+        data.print_data()
         graph1 = GraphWidget(self, "Zakazeni")
         graph2 = GraphWidget(self, "Ozdrowieni")
         double_slider1 = DoubleSlider(self)
@@ -39,7 +39,7 @@ class TabsWidget(QWidget):
         layout.addWidget(self.tabs)
         layout.addWidget(ListWidget(self), 0, 3, 3, 1)
         layout.addWidget(double_slider1, 3, 3, -1, -1)
-        layout.addWidget(ReportBtn("PDF",graph1,graph2), 3, 0, -1, 1)
+        layout.addWidget(ReportBtn("PDF", graph1, graph2), 3, 0, -1, 1)
 
         self.setLayout(layout)
         self.show()

@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date
 from Backend.updates import LoadInitData
 
 global FILENAME_RECOVERED
@@ -17,21 +17,33 @@ class Singleton():
 
     def __init__(self):
         if Singleton.__instance == None:
-            self.countries = []
-            self.date_range = self.__prepare_date_range()
-            self.start_day = self.date_range[0]
-            self.end_day = self.date_range[1]
-            self.n_of_days = self.__date_diff()
+            self.__countries = []
+
+            self.__date_range = None
+            self.__prepare_date_range()
+
+            self.__start_day = self.__date_range[0]
+            self.__end_day = self.__date_range[1]
+
             Singleton.__instance = self
 
     def add_country(self, country_name):
-        self.countries.append(country_name)
+        self.__countries.append(country_name)
+
+    def remove_country(self, country_name):
+        self.__countries.remove(country_name)
+
+    def get_start_day(self):
+        return self.__start_day
+
+    def get_end_day(self):
+        return self.__end_day
 
     def set_date_range(self, start_date: date, end_date: date):
-        self.date_range = (start_date, end_date)
+        self.__date_range = (start_date, end_date)
 
     def print_data(self):
-        print(f"Countries: {self.countries}\nDate_range: {self.date_range}")
+        print(f"Countries: {self.__countries}\nDate_range: {self.__date_range}")
 
     def __prepare_date_range(self):
         dates = LoadInitData(FILENAME_RECOVERED).get_date_range()
@@ -48,8 +60,14 @@ class Singleton():
         start_date = date(2000+start_date_arr[2], start_date_arr[0], start_date_arr[1])
         end_date = date(2000+end_date_arr[2], end_date_arr[0], end_date_arr[1])
 
-        return (start_date, end_date)
+        self.set_date_range(start_date, end_date)
 
-    def __date_diff(self):
-        delta = self.date_range[1] - self.date_range[0]
+    def get_date_range(self):
+        return self.__date_range
+
+    def get_countries_list(self):
+        return self.__countries
+
+    def get_n_of_days(self):
+        delta = self.__end_day - self.__start_day
         return (delta.days)

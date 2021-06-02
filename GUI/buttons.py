@@ -1,6 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTabWidget, QGridLayout, QCheckBox, QLabel, QScrollArea, \
-    QFormLayout, QGroupBox, QPushButton, QHBoxLayout, QFileDialog
-from GUI.graph import get_countries
+from PyQt5.QtWidgets import QPushButton, QFileDialog
 from reportlab.lib.utils import ImageReader
 from Backend.report import Report
 

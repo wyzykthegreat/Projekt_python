@@ -1,8 +1,6 @@
-from PyQt5.QtWidgets import QScrollArea, QFormLayout, QGroupBox, QLineEdit, QVBoxLayout, QWidget, QSpacerItem, \
-    QSizePolicy
+from PyQt5.QtWidgets import QScrollArea, QLineEdit, QVBoxLayout, QWidget, QSpacerItem, QSizePolicy
 from PyQt5.QtCore import Qt
 from GUI.checkboxes import Cbx
-from GUI.graph import GraphWidget
 from GUI.graph import get_countries
 from Backend.config import FILENAME_NEW_CASES
 

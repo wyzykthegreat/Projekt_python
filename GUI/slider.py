@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QSlider, QGridLayout, QLabel
 from PyQt5 import QtCore
 from Backend.config import Singleton
-import datetime
+from datetime import timedelta, date
 from GUI.graph import GraphWidget
 
 
@@ -10,14 +10,14 @@ class DoubleSlider(QWidget):
         super().__init__()
         data = Singleton.get_instance()
         start_value = 0
-        end_value = data.n_of_days
+        end_value = data.get_n_of_days()
         self.__start_value = start_value
         self.__end_value = end_value
         self.__min_width = min_width
         self.__parent = parent
 
-        self.__label1 = QLabel(f"{data.date_range[0]}")
-        self.__label2 = QLabel(f"{data.date_range[1]}")
+        self.__label1 = QLabel(f"{data.get_date_range()[0]}")
+        self.__label2 = QLabel(f"{data.get_date_range()[1]}")
 
 
         self.__slider1 = self.__prepare_slider1()
@@ -62,8 +62,8 @@ class DoubleSlider(QWidget):
         end_value = self.__slider2.value()
 
         self.__update_singleton_date_range()
+        self.__label1.setText(f"{data.get_date_range()[0]}")
         self.__update_graph()
-        self.__label1.setText(f"{data.date_range[0]}")
 
         if start_value > end_value:
             self.__slider1.setValue(end_value)
@@ -77,8 +77,8 @@ class DoubleSlider(QWidget):
         end_value = self.__slider2.value()
 
         self.__update_singleton_date_range()
+        self.__label2.setText(f"{data.get_date_range()[1]}")
         self.__update_graph()
-        self.__label2.setText(f"{data.date_range[1]}")
 
         if end_value < start_value:
             self.__slider2.setValue(start_value)
@@ -89,11 +89,11 @@ class DoubleSlider(QWidget):
         start_value = self.__slider1.value()
         end_value = self.__slider2.value()
 
-        start_date = singleton.start_day
-        end_date = singleton.end_day
+        start_date = singleton.get_start_day()
+        end_date = singleton.get_end_day()
 
-        start_date_new = start_date + datetime.timedelta(days=start_value)
-        end_date_new = end_date - datetime.timedelta(days=singleton.n_of_days - end_value)
+        start_date_new = start_date + timedelta(days = start_value)
+        end_date_new = end_date - timedelta(days = singleton.get_n_of_days() - end_value)
 
         singleton.set_date_range(start_date_new, end_date_new)
 

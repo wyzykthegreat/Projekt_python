@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QCheckBox, QLineEdit
-from GUI.graph import get_countries, GraphWidget
-from Backend.config import Singleton, FILENAME_NEW_CASES
+from PyQt5.QtWidgets import QCheckBox
+from GUI.graph import GraphWidget
+from Backend.config import Singleton
 
 
 class Cbx(QCheckBox):
@@ -14,12 +14,12 @@ class Cbx(QCheckBox):
         return lambda _: self.__on_click(name)
 
     def __on_click(self, name):
-        parameters = Singleton.get_instance()
-        if name in parameters.countries:
-            parameters.countries.remove(name)
+        data = Singleton.get_instance()
+        if name in data.get_countries_list():
+            data.remove_country(name)
             self.__update_graph()
         else:
-            parameters.countries.append(name)
+            data.add_country(name)
             self.__update_graph()
 
     def __update_graph(self):
