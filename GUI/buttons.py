@@ -23,5 +23,5 @@ class ReportBtn(QPushButton):
         self.__pdf_generator.create_and_save_report(img1, img2, filename)
 
     def __prepare_file_chooser(self):
-        filename, _ = QFileDialog.getSaveFileName(self, "Save PDF report", filter="All Files (*)")
+        filename, _ = QFileDialog.getSaveFileName(self, "Save PDF report", filter="PDF Files (*.pdf)")
         return filename
