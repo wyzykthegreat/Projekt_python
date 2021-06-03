@@ -22,7 +22,6 @@ class TabsWidget(QWidget):
         self.tabs.addTab(self.tab2, "Ozdrowieni")
 
         data = Singleton()
-        data.print_data()
         graph1 = GraphWidget(self, "Zakazeni")
         graph2 = GraphWidget(self, "Ozdrowieni")
         double_slider1 = DoubleSlider(self)

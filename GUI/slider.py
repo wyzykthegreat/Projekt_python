@@ -56,8 +56,6 @@ class DoubleSlider(QWidget):
     def __on_change_slider1(self):
         data = Singleton.get_instance()
 
-        data.print_data()
-
         start_value = self.__slider1.value()
         end_value = self.__slider2.value()
 
@@ -70,8 +68,6 @@ class DoubleSlider(QWidget):
 
     def __on_change_slider2(self):
         data = Singleton.get_instance()
-
-        data.print_data()
 
         start_value = self.__slider1.value()
         end_value = self.__slider2.value()
