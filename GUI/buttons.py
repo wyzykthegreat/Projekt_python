@@ -19,8 +19,10 @@ class ReportBtn(QPushButton):
         img_data2 = self.__graph2.get_img()
         img1 = ImageReader(img_data1)
         img2 = ImageReader(img_data2)
+        filename = None
         filename = self.__prepare_file_chooser()
-        self.__pdf_generator.create_and_save_report(img1, img2, filename)
+        if filename:
+            self.__pdf_generator.create_and_save_report(img1, img2, filename)
 
     def __prepare_file_chooser(self):
         filename, _ = QFileDialog.getSaveFileName(self, "Save PDF report", filter="PDF Files (*.pdf)")
