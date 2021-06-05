@@ -11,7 +11,7 @@ class Window(QMainWindow):
         super().__init__()
         self.setWindowTitle("Python-19")
         self.setFixedSize(790, 570)
-        self.setWindowIcon(QIcon('sars_cov_2_icon.ico'))
+        self.setWindowIcon(QIcon('GUI/sars_cov_2_icon.ico'))
         layout = QGridLayout()
 
         central_widget = QWidget()
