@@ -2,17 +2,16 @@ import requests
 
 class Update_Web_Data:
     def __init__(self):
-        pass
+        self.__url_new_cases = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
+        self.__url_recovered = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv'
+        self.__filename_new_cases = 'covid_19_cases.csv'
+        self.__filename_recovered = 'covid_19_recovered.csv'
 
     def update_new_cases(self):
-        url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
-        filename = 'covid_19_cases.csv'
-        self.download(url, filename)
+        self.download(self.__url_new_cases, self.__filename_new_cases)
 
     def update_recovered(self):
-        url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv'
-        filename = 'covid_19_recovered.csv'
-        self.download(url, filename)
+        self.download(self.__url_recovered, self.__filename_recovered)
 
 
     def download(self, url, filename):
