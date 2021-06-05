@@ -71,3 +71,6 @@ class Singleton():
     def get_n_of_days(self):
         delta = self.__end_day - self.__start_day
         return (delta.days)
+
+    def remove_all_countries(self):
+        self.__countries = []

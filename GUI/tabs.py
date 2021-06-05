@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTabWidget, QGridLayout
 from GUI.countries_list import ListWidget
 from GUI.graph import GraphWidget
-from GUI.buttons import ReportBtn
+from GUI.buttons import ReportBtn, UncheckBtn
 from Backend.config import Singleton
 from GUI.slider import DoubleSlider
 
@@ -21,10 +21,12 @@ class TabsWidget(QWidget):
         self.tabs.addTab(self.tab1, "Zakazeni")
         self.tabs.addTab(self.tab2, "Ozdrowieni")
 
-        data = Singleton()
         graph1 = GraphWidget(self, "Zakazeni")
         graph2 = GraphWidget(self, "Ozdrowieni")
-        double_slider1 = DoubleSlider(self)
+        double_slider = DoubleSlider(self)
+        list_widget = ListWidget(self)
+        report_btn = ReportBtn("PDF", graph1, graph2)
+        uncheck_btn = UncheckBtn(self, list_widget, "Clear graph")
 
         self.layout_tab1 = QGridLayout()
         self.layout_tab1.addWidget(graph1, 0, 0, 3, 3)
@@ -35,10 +37,11 @@ class TabsWidget(QWidget):
         self.tab1.setLayout(self.layout_tab1)
         self.tab2.setLayout(self.layout_tab2)
 
-        layout.addWidget(self.tabs)
-        layout.addWidget(ListWidget(self), 0, 3, 3, 1)
-        layout.addWidget(double_slider1, 3, 3, -1, -1)
-        layout.addWidget(ReportBtn("PDF", graph1, graph2), 3, 0, -1, 1)
+        layout.addWidget(self.tabs, 0, 0, 2, 2)
+        layout.addWidget(list_widget, 0, 3, 3, 1)
+        layout.addWidget(double_slider, 3, 3, -1, -1)
+        layout.addWidget(report_btn, 3, 0, -1, 1)
+        layout.addWidget(uncheck_btn, 3, 1, -1, 1)
 
         self.setLayout(layout)
         self.show()
