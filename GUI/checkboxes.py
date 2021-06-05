@@ -27,8 +27,8 @@ class Cbx(QCheckBox):
                     raise UnableToAddMoreCountriesToGraph()
                 else:
                     data.add_country(name)
-
                 self.__update_graph()
+
         except UnableToAddMoreCountriesToGraph as err:
             msg = QMessageBox()
             msg.setWindowTitle("Caught error")

@@ -31,13 +31,7 @@ class GraphWidget(FigureCanvas):
         plot1 = GraphWidget(self.__parent, "Zakazeni")
         plot2 = GraphWidget(self.__parent, "Ozdrowieni")
 
-        self.__parent.layout_tab1.addWidget(plot1, 0, 0, 3, 3)
-        self.__parent.layout_tab2.addWidget(plot2, 0, 0, 3, 3)
-
-        self.__parent.tab1.setLayout(self.__parent.layout_tab1)
-        self.__parent.tab2.setLayout(self.__parent.layout_tab2)
-
-        self.__parent.show()
+        self.__parent.update_graphs(plot1, plot2)
 
         return (plot1, plot2)
 

@@ -1,50 +1,37 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTabWidget, QGridLayout
-from GUI.countries_list import ListWidget
 from GUI.graph import GraphWidget
-from GUI.buttons import ReportBtn, UncheckBtn
-from Backend.config import Singleton
-from GUI.slider import DoubleSlider
 
 
-class TabsWidget(QWidget):
+class TabsWidget(QTabWidget):
 
     def __init__(self):
         super().__init__()
-        layout = QGridLayout()
 
-        self.tabs = QTabWidget()
-        self.tabs.setFixedSize(520, 430)
+        self.setFixedSize(520, 430)
 
-        self.tab1 = QWidget()
-        self.tab2 = QWidget()
+        self.__tab1 = QWidget()
+        self.__tab2 = QWidget()
 
-        self.tabs.addTab(self.tab1, "Zakazeni")
-        self.tabs.addTab(self.tab2, "Ozdrowieni")
+        self.addTab(self.__tab1, "Zakazeni")
+        self.addTab(self.__tab2, "Ozdrowieni")
 
         graph1 = GraphWidget(self, "Zakazeni")
         graph2 = GraphWidget(self, "Ozdrowieni")
-        double_slider = DoubleSlider(self)
-        list_widget = ListWidget(self)
-        report_btn = ReportBtn("PDF", graph1, graph2)
-        uncheck_btn = UncheckBtn(self, list_widget, "Clear graph")
 
-        self.layout_tab1 = QGridLayout()
-        self.layout_tab1.addWidget(graph1, 0, 0, 3, 3)
+        self.__layout_tab1 = QGridLayout()
+        self.__layout_tab1.addWidget(graph1)
 
-        self.layout_tab2 = QGridLayout()
-        self.layout_tab2.addWidget(graph2, 0, 0)
+        self.__layout_tab2 = QGridLayout()
+        self.__layout_tab2.addWidget(graph2)
 
-        self.tab1.setLayout(self.layout_tab1)
-        self.tab2.setLayout(self.layout_tab2)
+        self.__tab1.setLayout(self.__layout_tab1)
+        self.__tab2.setLayout(self.__layout_tab2)
 
-        layout.addWidget(self.tabs, 0, 0, 2, 2)
-        layout.addWidget(list_widget, 0, 3, 3, 1)
-        layout.addWidget(double_slider, 3, 3, -1, -1)
-        layout.addWidget(report_btn, 3, 0, -1, 1)
-        layout.addWidget(uncheck_btn, 3, 1, -1, 1)
+    def update_graphs(self, plot1, plot2):
+        self.__layout_tab1.addWidget(plot1, 0, 0, 3, 3)
+        self.__layout_tab2.addWidget(plot2, 0, 0, 3, 3)
 
-        self.setLayout(layout)
+        self.__tab1.setLayout(self.__layout_tab1)
+        self.__tab2.setLayout(self.__layout_tab2)
+
         self.show()
-
-    def get_selected_tab(self):
-        return self.tabs.currentIndex()
