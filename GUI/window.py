@@ -9,7 +9,7 @@ from GUI.buttons import ReportBtn, UncheckBtn
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Pyton-19")
+        self.setWindowTitle("Python-19")
         self.setFixedSize(790, 570)
         self.setWindowIcon(QIcon('virus_icon.ico'))
         layout = QGridLayout()
