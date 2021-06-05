@@ -98,6 +98,8 @@ def get_patients_as_vector(country_data_line):
 
 
 def drawing(type: str, start_date: datetime):
+    data = Singleton.get_instance()
+
     plt.xlabel(f"Dni od {start_date}")
     if type == "Zakazeni":
         plt.ylabel("Liczba zakażeń")
@@ -106,4 +108,5 @@ def drawing(type: str, start_date: datetime):
         plt.ylabel("Liczba ozdrowień")
         plt.title("Całkowita liczba ozdrowień COVID-19")
     plt.grid()
-    plt.legend()
+    if data.get_countries_list() != []:
+        plt.legend()

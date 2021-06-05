@@ -3,6 +3,8 @@ from reportlab.lib.utils import ImageReader
 from Backend.report import Report
 from Backend.config import Singleton
 from Backend.exceptions import UnableToGenerateReportException
+from GUI.countries_list import ListWidget
+from GUI.graph import GraphWidget
 
 
 class ReportBtn(QPushButton):
@@ -40,3 +42,25 @@ class ReportBtn(QPushButton):
     def __prepare_file_chooser(self):
         filename, _ = QFileDialog.getSaveFileName(self, "Save PDF report", filter="PDF Files (*.pdf)")
         return filename
+
+class UncheckBtn(QPushButton):
+    def __init__(self, parent, list_widget: ListWidget, name):
+        super().__init__(name)
+        self.__cbx_list = list_widget.get_cbx_group()
+        self.__parent = parent
+
+        self.clicked.connect(self.__btn_action)
+
+    def __btn_action(self):
+        data = Singleton.get_instance()
+
+        for cbx in self.__cbx_list:
+            cbx.setChecked(False)
+
+        data.remove_all_countries()
+
+        self.__update_graph()
+
+    def __update_graph(self):
+        plot = GraphWidget(self.__parent, "Ozdrowieni")
+        plot.update_graph()

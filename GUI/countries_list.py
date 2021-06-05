@@ -11,7 +11,8 @@ class ListWidget(QWidget):
         self.__parent = parent
         self.__controls = QWidget()
         self.__controls_layout = QVBoxLayout()
-        self.__cbx_group = self.__make_list()
+        self.__cbx_group = []
+        self.__make_list()
         self.__searchbar = QLineEdit()
         self.__scroll = QScrollArea()
 
@@ -48,4 +49,5 @@ class ListWidget(QWidget):
             self.__controls_layout.addWidget(cbx)
             self.__cbx_group.append(cbx)
 
+    def get_cbx_group(self):
         return self.__cbx_group
