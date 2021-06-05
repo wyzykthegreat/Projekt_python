@@ -106,3 +106,4 @@ def drawing(type: str, start_date: datetime):
         plt.ylabel("Liczba ozdrowień")
         plt.title("Całkowita liczba ozdrowień COVID-19")
     plt.grid()
+    plt.legend()
