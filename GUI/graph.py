@@ -28,6 +28,7 @@ class GraphWidget(FigureCanvas):
         drawing(type, singleton.get_date_range()[0])
 
     def update_graph(self):
+        plt.close("all")
         plot1 = GraphWidget(self.__parent, "Zakazeni")
         plot2 = GraphWidget(self.__parent, "Ozdrowieni")
 
