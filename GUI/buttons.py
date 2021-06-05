@@ -8,10 +8,11 @@ from GUI.graph import GraphWidget
 
 
 class ReportBtn(QPushButton):
-    def __init__(self, name, graph1, graph2):
+    def __init__(self, parent, name):
         super().__init__(name)
-        self.__graph1 = graph1
-        self.__graph2 = graph2
+        self.__parent = parent
+        self.__graph1 = GraphWidget(self.__parent, "Zakazeni")
+        self.__graph2 = GraphWidget(self.__parent, "Ozdrowieni")
 
         self.__pdf_generator = Report()
 
