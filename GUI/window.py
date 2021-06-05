@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget
+from PyQt5.QtGui import QIcon
 from GUI.tabs import TabsWidget
 from GUI.countries_list import ListWidget
 from GUI.slider import DoubleSlider
@@ -10,6 +11,7 @@ class Window(QMainWindow):
         super().__init__()
         self.setWindowTitle("Pyton-19")
         self.setFixedSize(790, 570)
+        self.setWindowIcon(QIcon('virus_icon.ico'))
         layout = QGridLayout()
 
         central_widget = QWidget()
